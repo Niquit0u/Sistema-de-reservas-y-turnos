@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reserva de Turnos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Reservas y Turnos</h1>
+        <nav>
+            <a href="/info">Información del Sistema</a> |
+            <a href="/mis-turnos">Mis Turnos (Redirección)</a> |
+            <a href="/api/turnos" target="_blank">Ver JSON crudo</a>
+        </nav>
+    </header>
+
+    <main class="contenedor">
+        <section class="tarjeta">
+            <h2>Solicitar Nuevo Turno</h2>
+            <form action="/turnos" method="POST">
+                <label for="cliente">Nombre y Apellido del Cliente:</label>
+                <input type="text" id="cliente" name="cliente" required placeholder="Ej. María Gómez">
+
+                <label for="dni">DNI:</label>
+                <input type="text" id="dni" name="dni" required placeholder="Ej. 40111222">
+
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required placeholder="Ej. 2995112233">
+
+                <div class="fila">
+                    <div>
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" name="fecha" required>
+                    </div>
+                    <div>
+                        <label for="hora">Hora:</label>
+                        <input type="time" id="hora" name="hora" required>
+                    </div>
+                </div>
+
+                <label for="servicio">Servicio:</label>
+                <select id="servicio" name="servicio" required>
+                    <option value="">Seleccione un servicio...</option>
+                    <option value="Consulta General">Consulta General</option>
+                    <option value="Asesoramiento Técnico">Asesoramiento Técnico</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
+                    <option value="Atención Administrativa">Atención Administrativa</option>
+                </select>
+
+                <button type="submit">Confirmar Reserva</button>
+            </form>
+        </section>
+
+        <section class="tarjeta">
+            <h2>Turnos Registrados</h2>
+            <div class="tabla-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>DNI</th>
+                            <th>Teléfono</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Servicio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-turnos">
+                        <tr>
+                            <td colspan="7">Cargando turnos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

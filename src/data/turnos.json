@@ -1,11 +1,1 @@
-[
-  {
-    "id": 1,
-    "cliente": "Juan Pérez",
-    "telefono": "2994123456",
-    "dni": "38123456",
-    "fecha": "2026-11-20",
-    "hora": "10:30",
-    "servicio": "Consulta General"
-  }
-]
+[]

@@ -32,7 +32,13 @@ async function cargarTurnos() {
                 <td>${turno.hora}</td>
                 <td>${turno.servicio}</td>
                 <td>
-                    <button class="btn-cancelarTurno" data-id="${turno.id}" style="background-color: #dc2626; padding: 5px 10px; margin-top: 0; cursor: pointer;">Cancelar</button>
+                    <button
+                        class="btn-cancelarTurno"
+                        data-id="${turno.id}"
+                        onclick="cancelarTurno(${turno.id})"
+                        style="background-color: #dc2626; padding: 5px 10px; margin-top: 0; cursor: pointer;">
+                        Cancelar
+                    </button>
                 </td>
             `;
             contenedorTabla.appendChild(fila);
@@ -43,7 +49,8 @@ async function cargarTurnos() {
     }
 }
 
-async function cancelarTurno(id) {
+window.cancelarTurno = async function(id) {
+    console.log('Botón presionado. Intentando cancelar ID:', id);
     if (confirm('¿Estás seguro de que deseas cancelar este turno?')) {
         try {
             const response = await fetch(`/api/turnos/${id}`, {
@@ -51,13 +58,13 @@ async function cancelarTurno(id) {
             });
             
             if (response.ok) {
-                // Volvemos a cargar la tabla para que desaparezca el turno eliminado
+                // refresh
                 cargarTurnos();
             } else {
                 alert('Error al cancelar el turno.');
             }
         } catch (error) {
-            console.error('Error:', error); // Manejo de errores con try-catch
+            console.error('Error:', error);
         }
     }
 }

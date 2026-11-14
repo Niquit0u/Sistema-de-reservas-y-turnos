@@ -30,7 +30,21 @@ const guardarTurno = (datosTurno) => {
     return nuevoTurno;
 };
 
+const eliminarTurno = (id) => {
+    let turnos = obtenerTurnos();
+    // Filtro para dejar todos los turnos excepto el que coincide con el ID
+    const turnosFiltrados = turnos.filter(turno => turno.id !== parseInt(id));
+    
+    // Si la longitud cambió, significa que se eliminó el turno
+    if (turnos.length !== turnosFiltrados.length) {
+        fs.writeFileSync(rutaArchivo, JSON.stringify(turnosFiltrados, null, 2), 'utf-8');
+        return true; // Se eliminó con éxito
+    }
+    return false; // No se encontró el ID
+};
+
 module.exports = {
     obtenerTurnos,
-    guardarTurno
+    guardarTurno,
+    eliminarTurno // <-- Asegúrate de exportar la nueva función
 };

@@ -23,11 +23,19 @@ router.post('/turnos', (req, res) => {
         `);
     }
 
-    // Guardar usando el módulo propio
-    gestorTurnos.guardarTurno({ cliente, telefono, dni, fecha, hora, servicio });
-
-    // Requisito 5 (Situación 1): Redireccionar después de procesar un formulario POST
-    res.redirect('/');
+    try {
+        // Guardar usando el módulo propio (si el turno está ocupado, lanza el error hacia el catch)
+        gestorTurnos.guardarTurno({ cliente, telefono, dni, fecha, hora, servicio });
+        res.redirect('/');
+    } catch (error) {
+        // Dispara la alerta nativa en el navegador con el mensaje exacto y regresa al formulario
+        return res.status(400).send(`
+            <script>
+                alert("${error.message}");
+                window.history.back();
+            </script>
+        `);
+    }
 });
 
 // RUTA 3: GET /mis-turnos -> Redireccionamiento desde una ruta alternativa/antigua (Requisito 5 - Situación 2)

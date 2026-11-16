@@ -16,17 +16,22 @@ const guardarTurno = (datosTurno) => {
 
     try {
         const turnos = obtenerTurnos();
+        const convertirAMinutos = (horaStr) => {
+            const [horas, minutos] = horaStr.split(':').map(Number);
+            return horas * 60 + minutos;
+        };
 
         // Verifica coincidencia de fecha, hora Y servicio
         const turnoOcupado = turnos.some(
             (turno) => 
-                turno.fecha === datosTurno.fecha && 
-                turno.hora === datosTurno.hora && 
-                turno.servicio === datosTurno.servicio
+                turno.fecha === datosTurno.fecha &&
+                turno.servicio === datosTurno.servicio &&
+                convertirAMinutos(turno.hora) > convertirAMinutos(datosTurno.hora) - 15 &&
+                convertirAMinutos(turno.hora) < convertirAMinutos(datosTurno.hora) + 15 // Considera un margen de 15 minutos para evitar solapamientos
         );
 
         if (turnoOcupado) {
-            throw new Error(`Ya existe un turno reservado para ${datosTurno.servicio} el ${datosTurno.fecha} a las ${datosTurno.hora}.`);
+            throw new Error(`Ya existe un turno reservado para ${datosTurno.servicio} el ${datosTurno.fecha} a las ${datosTurno.hora}. Debe haber una diferencia de 15min entre turnos.`);
         }
         
         const nuevoTurno = {

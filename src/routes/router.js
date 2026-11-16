@@ -58,4 +58,16 @@ router.get('/info', (req, res) => {
     `);
 });
 
+// Ruta para eliminar un turno por su ID
+router.delete('/api/turnos/:id', (req, res) => {
+    const id = req.params.id;
+    const eliminado = gestorTurnos.eliminarTurno(id);
+    
+    if (eliminado) {
+        res.json({ mensaje: 'Turno cancelado exitosamente.' });
+    } else {
+        res.status(404).json({ error: 'Turno no encontrado.' });
+    }
+});
+
 module.exports = router;

@@ -16,6 +16,7 @@ const guardarTurno = (datosTurno) => {
 
     try {
         const turnos = obtenerTurnos();
+        // Convierte la hora a minutos para facilitar la comparación
         const convertirAMinutos = (horaStr) => {
             const [horas, minutos] = horaStr.split(':').map(Number);
             return horas * 60 + minutos;

@@ -1,92 +1,20 @@
 [
   {
     "id": 1,
-    "cliente": "Juan Pérez",
-    "telefono": "2994123456",
-    "dni": "38123456",
+    "cliente": "María Gomez",
+    "telefono": "2998726716",
+    "dni": "29897178",
     "fecha": "2026-11-20",
-    "hora": "10:30",
-    "servicio": "Consulta General"
+    "hora": "10:50",
+    "servicio": "Otorrinolaringología"
   },
   {
     "id": 2,
-    "cliente": "d",
-    "telefono": "2444444444",
-    "dni": "242424242",
-    "fecha": "2026-11-20",
-    "hora": "22:30",
-    "servicio": "Consulta General"
-  },
-  {
-    "id": 3,
-    "cliente": "h",
-    "telefono": "2994444345",
-    "dni": "444",
-    "fecha": "2026-11-20",
-    "hora": "10:30",
-    "servicio": "Mantenimiento"
-  },
-  {
-    "id": 6,
-    "cliente": "l",
-    "telefono": "75474574",
-    "dni": "7654654",
-    "fecha": "2026-11-20",
-    "hora": "10:50",
-    "servicio": "Mantenimiento"
-  },
-  {
-    "id": 7,
-    "cliente": "hfg",
-    "telefono": "63263262",
-    "dni": "62632632",
-    "fecha": "2026-11-20",
-    "hora": "11:05",
-    "servicio": "Mantenimiento"
-  },
-  {
-    "id": 8,
-    "cliente": "Aaaaaaa",
-    "telefono": "2998726721",
-    "dni": "38898162",
-    "fecha": "2026-11-20",
-    "hora": "22:30",
-    "servicio": "Mantenimiento"
-  },
-  {
-    "id": 9,
-    "cliente": "Alonso Gonzalez",
-    "telefono": "2997583627",
-    "dni": "38382987",
-    "fecha": "2026-11-20",
-    "hora": "23:20",
-    "servicio": "Mantenimiento"
-  },
-  {
-    "id": 10,
-    "cliente": "Sebastian Yatra",
-    "telefono": "2998378271",
-    "dni": "39209890",
-    "fecha": "2026-11-21",
-    "hora": "23:20",
-    "servicio": "Mantenimiento"
-  },
-  {
-    "id": 11,
-    "cliente": "abcdefg",
-    "telefono": "2997467382",
-    "dni": "42189278",
-    "fecha": "2026-11-20",
-    "hora": "23:00",
-    "servicio": "Mantenimiento"
-  },
-  {
-    "id": 12,
-    "cliente": "aaweaea",
+    "cliente": "Juan Lopez",
     "telefono": "2998725167",
-    "dni": "38928782",
+    "dni": "45289278",
     "fecha": "2026-11-20",
-    "hora": "11:20",
-    "servicio": "Mantenimiento"
+    "hora": "11:00",
+    "servicio": "Traumatología"
   }
 ]

@@ -102,7 +102,7 @@ window.editarTurno = function(id) {
         <td><input type="time" value="${turno.hora}" data-campo="hora" required></td>
         <td>
             <select data-campo="servicio" required>
-                ${['Consulta General', 'Asesoramiento Técnico', 'Mantenimiento', 'Atención Administrativa']
+                ${['Pediatría', 'Otorrinolaringología', 'Traumatología', 'Gastroenterología']
                     .map((servicio) => `<option ${servicio === turno.servicio ? 'selected' : ''}>${servicio}</option>`)
                     .join('')}
             </select>

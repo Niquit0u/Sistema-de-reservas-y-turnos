@@ -82,7 +82,7 @@ router.get('/info', (req, res) => {
     <main style="max-width: 700px; margin: 0 auto;">
         <section class="tarjeta" style="line-height: 1.8;">
             <h2>Información del Sistema de Turnos</h2>
-            <p>Aplicación web desarrollada con Node.js y Express para la Actividad Integradora.</p>
+            <p>Aplicación web desarrollada con Node.js y Express.</p>
             <ul style="margin: 15px 0 20px 20px;">
                 <li><strong>Campos registrados:</strong> ID, Cliente, Teléfono, DNI, Fecha, Hora y Servicio.</li>
                 <li><strong>Validación de turnos:</strong> Debe haber al menos 15 minutos de diferencia entre turnos del mismo servicio y fecha.</li>

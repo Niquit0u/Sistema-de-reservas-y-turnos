@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path'); // Necesario para la ruta de archivos estáticos
+const path = require('path'); // para la ruta de archivos estáticos
 const config = require('./src/config/config');
 const router = require('./src/routes/router');
 
@@ -10,12 +10,11 @@ const app = express();
 
 // Middlewares
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true })); // <-- FALTABA: Para leer los datos del form HTML
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Servir archivos estáticos del cliente
-// Asegúrate de que tu carpeta de frontend se llame 'public'
-app.use(express.static(path.join(__dirname, 'public'))); // <-- FALTABA: Para cumplir el Req 6
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas
 app.use(router);

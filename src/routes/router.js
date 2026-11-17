@@ -59,17 +59,40 @@ router.get('/mis-turnos', (req, res) => {
 
 // RUTA 5: GET /info -> Información del sistema
 router.get('/info', (req, res) => {
-    res.send(`
-        <div style="font-family: sans-serif; max-width: 600px; margin: 40px auto; line-height: 1.6;">
-            <h1>Información del Sistema de Turnos</h1>
+    res.send(`<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del Sistema - Turnos</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-contenido">
+            <h1>Gestión de Reservas y Turnos</h1>
+            <nav>
+                <a href="/">Inicio</a>
+                <a href="/info">Información del Sistema</a>
+                <a href="/api/turnos" target="_blank">Ver JSON</a>
+            </nav>
+        </div>
+    </header>
+
+    <main style="max-width: 700px; margin: 0 auto;">
+        <section class="tarjeta" style="line-height: 1.8;">
+            <h2>Información del Sistema de Turnos</h2>
             <p>Aplicación web desarrollada con Node.js y Express para la Actividad Integradora.</p>
-            <ul>
+            <ul style="margin: 15px 0 20px 20px;">
                 <li><strong>Campos registrados:</strong> ID, Cliente, Teléfono, DNI, Fecha, Hora y Servicio.</li>
+                <li><strong>Validación de turnos:</strong> Debe haber al menos 15 minutos de diferencia entre turnos del mismo servicio y fecha.</li>
                 <li><strong>Endpoint JSON disponible en:</strong> <a href="/api/turnos">/api/turnos</a></li>
             </ul>
-            <a href="/">⬅ Volver al inicio</a>
-        </div>
-    `);
+            <a href="/" style="color: #2563eb; font-weight: 600; text-decoration: none;">⬅ Volver al inicio</a>
+        </section>
+    </main>
+</body>
+</html>`);
 });
 
 // RUTA 6: DELETE /api/turnos/:id -> Ruta para eliminar un turno por su ID

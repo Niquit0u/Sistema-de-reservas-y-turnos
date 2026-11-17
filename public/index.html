@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Reserva de Turnos</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <header>
@@ -21,7 +21,7 @@
     <main class="contenedor">
         <section class="tarjeta">
             <h2>Solicitar Nuevo Turno</h2>
-            <form action="/turnos" method="POST">
+            <form id="formulario-turno" action="/turnos" method="POST">
                 <label for="cliente">Nombre y Apellido del Cliente:</label>
                 <input type="text" id="cliente" name="cliente" required placeholder="Ej. María Gómez">
 
@@ -68,11 +68,12 @@
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Servicio</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="lista-turnos">
                         <tr>
-                            <td colspan="7">Cargando turnos...</td>
+                            <td colspan="8">Cargando turnos...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -80,6 +81,6 @@
         </section>
     </main>
 
-    <script src="app.js"></script>
+    <script src="/app.js"></script>
 </body>
 </html>

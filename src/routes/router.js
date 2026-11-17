@@ -2,17 +2,17 @@ const express = require('express');
 const router = express.Router();
 const gestorTurnos = require('../data/gestorTurnos');
 
-// RUTA 1: GET /api/turnos -> Devuelve el listado de turnos en formato JSON (Requisito 4)
+// RUTA 1: GET /api/turnos -> Devuelve el listado de turnos en formato JSON
 router.get('/api/turnos', (req, res) => {
     const turnos = gestorTurnos.obtenerTurnos();
     res.json(turnos);
 });
 
-// RUTA 2: POST /turnos -> Recibe el formulario, valida, guarda y redirige (Requisitos 4, 5 y 9)
+// RUTA 2: POST /turnos -> Recibe el formulario, valida, guarda y redirige
 router.post('/turnos', (req, res) => {
     const { cliente, telefono, dni, fecha, hora, servicio } = req.body;
 
-    // Requisito 9: Validación básica de los datos recibidos
+    // Validación básica de los datos recibidos
     if (!cliente || !telefono || !dni || !fecha || !hora || !servicio) {
         return res.status(400).send(`
             <div style="font-family: sans-serif; text-align: center; margin-top: 50px;">
@@ -28,7 +28,7 @@ router.post('/turnos', (req, res) => {
         gestorTurnos.guardarTurno({ cliente, telefono, dni, fecha, hora, servicio });
         res.redirect('/');
     } catch (error) {
-        // Dispara la alerta nativa en el navegador con el mensaje exacto y regresa al formulario
+        // alerta nativa en el navegador con el mensaje y regresa al formulario
         return res.status(400).send(`
             <script>
                 alert("${error.message}");
@@ -38,12 +38,38 @@ router.post('/turnos', (req, res) => {
     }
 });
 
-// RUTA 3: GET /mis-turnos -> Redireccionamiento desde una ruta alternativa/antigua (Requisito 5 - Situación 2)
+// RUTA 3: PUT /api/turnos/:id -> Ruta para actualizar un turno por su ID
+router.put('/api/turnos/:id', (req, res) => {
+    const { telefono, fecha, hora, servicio } = req.body;
+
+    if (!telefono || !fecha || !hora || !servicio) {
+        return res.status(400).json({ error: 'Teléfono, fecha, hora y servicio son obligatorios.' });
+    }
+
+    try {
+        const turnoActualizado = gestorTurnos.actualizarTurno(req.params.id, {
+            telefono,
+            fecha,
+            hora,
+            servicio
+        });
+
+        if (!turnoActualizado) {
+            return res.status(404).json({ error: 'Turno no encontrado.' });
+        }
+
+        res.json(turnoActualizado);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+// RUTA 4: GET /mis-turnos -> Redireccionamiento desde una ruta alternativa/antigua
 router.get('/mis-turnos', (req, res) => {
     res.redirect('/');
 });
 
-// RUTA 4: GET /info -> Cuarta ruta obligatoria con información del sistema (Requisito 4)
+// RUTA 5: GET /info -> Información del sistema
 router.get('/info', (req, res) => {
     res.send(`
         <div style="font-family: sans-serif; max-width: 600px; margin: 40px auto; line-height: 1.6;">
@@ -58,7 +84,7 @@ router.get('/info', (req, res) => {
     `);
 });
 
-// Ruta para eliminar un turno por su ID
+// RUTA 6: DELETE /api/turnos/:id -> Ruta para eliminar un turno por su ID
 router.delete('/api/turnos/:id', (req, res) => {
     const id = req.params.id;
     const eliminado = gestorTurnos.eliminarTurno(id);

@@ -938,6 +938,11 @@
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "src/data/turnos.json"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Niquit0u/Sistema-de-reservas-y-turnos.git"

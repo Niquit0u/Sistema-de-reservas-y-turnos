@@ -46,3 +46,13 @@ node index.js
 ```
  
 5. Abrir en el navegador: <http://localhost:3000>
+
+
+### LISTA DE RUTAS
+
+1. GET /api/turnos -> Devuelve el listado de turnos en formato JSON
+2. POST /turnos -> Recibe el formulario, valida, guarda y redirige
+3. PUT /api/turnos/:id -> Ruta para actualizar un turno por su ID
+4. GET /mis-turnos -> Redireccionamiento desde una ruta alternativa/antigua
+5. GET /info -> Información del sistema
+6. DELETE /api/turnos/:id -> Ruta para eliminar un turno por su ID

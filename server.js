@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'src')));
 // Usar el módulo de rutas propio
 app.use('/', turnosRoutes);
 
-// Requisito 9: Ruta 404 personalizada para rutas no existentes
+// Ruta 404 personalizada para rutas no existentes
 app.use((req, res) => {
     res.status(404).send(`
         <div style="font-family: sans-serif; text-align: center; margin-top: 50px;">

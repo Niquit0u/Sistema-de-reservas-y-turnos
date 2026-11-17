@@ -12,24 +12,25 @@ const obtenerTurnos = () => {
     }
 };
 
+const convertirAMinutos = (horaStr) => {
+    const [horas, minutos] = horaStr.split(':').map(Number);
+    return horas * 60 + minutos;
+};
+
+const verificarDisponibilidad = (turnos, datosTurno, idIgnorado) => turnos.some(
+    (turno) =>
+        turno.id !== idIgnorado &&
+        turno.fecha === datosTurno.fecha &&
+        turno.servicio === datosTurno.servicio &&
+        convertirAMinutos(turno.hora) > convertirAMinutos(datosTurno.hora) - 15 &&
+        convertirAMinutos(turno.hora) < convertirAMinutos(datosTurno.hora) + 15
+);
+
 const guardarTurno = (datosTurno) => {
 
     try {
         const turnos = obtenerTurnos();
-        // Convierte la hora a minutos para facilitar la comparación
-        const convertirAMinutos = (horaStr) => {
-            const [horas, minutos] = horaStr.split(':').map(Number);
-            return horas * 60 + minutos;
-        };
-
-        // Verifica coincidencia de fecha, hora Y servicio
-        const turnoOcupado = turnos.some(
-            (turno) => 
-                turno.fecha === datosTurno.fecha &&
-                turno.servicio === datosTurno.servicio &&
-                convertirAMinutos(turno.hora) > convertirAMinutos(datosTurno.hora) - 15 &&
-                convertirAMinutos(turno.hora) < convertirAMinutos(datosTurno.hora) + 15 // Considera un margen de 15 minutos para evitar solapamientos
-        );
+        const turnoOcupado = verificarDisponibilidad(turnos, datosTurno);
 
         if (turnoOcupado) {
             throw new Error(`Ya existe un turno reservado para ${datosTurno.servicio} el ${datosTurno.fecha} a las ${datosTurno.hora}. Debe haber una diferencia de 15min entre turnos.`);
@@ -55,12 +56,41 @@ const guardarTurno = (datosTurno) => {
     }
 };
 
+const actualizarTurno = (id, datosTurno) => {
+    try {
+        const turnos = obtenerTurnos();
+        const idNumerico = parseInt(id);
+        const indiceTurno = turnos.findIndex((turno) => turno.id === idNumerico);
+
+        if (indiceTurno === -1) {
+            return null;
+        }
+
+        if (verificarDisponibilidad(turnos, datosTurno, idNumerico)) {
+            throw new Error(`Ya existe un turno reservado para ${datosTurno.servicio} el ${datosTurno.fecha} a las ${datosTurno.hora}. Debe haber una diferencia de 15min entre turnos.`);
+        }
+
+        turnos[indiceTurno] = {
+            ...turnos[indiceTurno],
+            telefono: datosTurno.telefono.trim(),
+            fecha: datosTurno.fecha,
+            hora: datosTurno.hora,
+            servicio: datosTurno.servicio
+        };
+
+        fs.writeFileSync(rutaArchivo, JSON.stringify(turnos, null, 2), 'utf-8');
+        return turnos[indiceTurno];
+    } catch (error) {
+        throw new Error('Error al actualizar el turno: ' + error.message);
+    }
+};
+
 const eliminarTurno = (id) => {
     let turnos = obtenerTurnos();
     // Filtro para dejar todos los turnos excepto el que coincide con el ID
     const turnosFiltrados = turnos.filter(turno => turno.id !== parseInt(id));
     
-    // Si la longitud cambió, significa que se eliminó el turno
+    // Si la longitud cambió, se eliminó el turno
     if (turnos.length !== turnosFiltrados.length) {
         fs.writeFileSync(rutaArchivo, JSON.stringify(turnosFiltrados, null, 2), 'utf-8');
         return true; // Se eliminó con éxito
@@ -71,5 +101,6 @@ const eliminarTurno = (id) => {
 module.exports = {
     obtenerTurnos,
     guardarTurno,
-    eliminarTurno // <-- Asegúrate de exportar la nueva función
+    actualizarTurno,
+    eliminarTurno
 };

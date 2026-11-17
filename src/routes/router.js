@@ -14,13 +14,7 @@ router.post('/turnos', (req, res) => {
 
     // Validación básica de los datos recibidos
     if (!cliente || !telefono || !dni || !fecha || !hora || !servicio) {
-        return res.status(400).send(`
-            <div style="font-family: sans-serif; text-align: center; margin-top: 50px;">
-                <h2>Error 400: Datos incompletos</h2>
-                <p>Todos los campos (cliente, teléfono, DNI, fecha, hora y servicio) son obligatorios.</p>
-                <a href="/">Volver al formulario</a>
-            </div>
-        `);
+        return res.status(400).json({ error: 'Todos los campos (cliente, teléfono, DNI, fecha, hora y servicio) son obligatorios.' });
     }
 
     try {
@@ -28,13 +22,7 @@ router.post('/turnos', (req, res) => {
         gestorTurnos.guardarTurno({ cliente, telefono, dni, fecha, hora, servicio });
         res.redirect('/');
     } catch (error) {
-        // alerta nativa en el navegador con el mensaje y regresa al formulario
-        return res.status(400).send(`
-            <script>
-                alert("${error.message}");
-                window.history.back();
-            </script>
-        `);
+        return res.status(400).json({ error: error.message });
     }
 });
 

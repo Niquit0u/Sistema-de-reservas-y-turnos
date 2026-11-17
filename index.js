@@ -23,7 +23,7 @@ app.use(router);
 // Middleware para Ruta 404 personalizada
 app.use((req, res) => {
     res.status(404).send('<h1>Error 404: Página no encontrada</h1><p>La ruta solicitada no existe.</p>');
-}); // <-- FALTABA: Para cumplir el Req 9
+});
 
 const port = config.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}!`));

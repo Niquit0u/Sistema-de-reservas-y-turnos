@@ -19,14 +19,15 @@ async function guardarTurno(event) {
         });
 
         if (!response.ok) {
-            throw new Error('No se pudo guardar el turno.');
+            const data = await response.json().catch(() => null);
+            throw new Error(data?.error || 'No se pudo guardar el turno.');
         }
 
         formulario.reset();
         await cargarTurnos();
     } catch (error) {
         console.error('Error al guardar el turno:', error);
-        alert('No se pudo guardar el turno. Intenta nuevamente.');
+        alert(error.message);
     } finally {
         boton.disabled = false;
     }

@@ -52,7 +52,7 @@ const guardarTurno = (datosTurno) => {
         return nuevoTurno;
     
     } catch (error) {
-        throw new Error('Error al guardar el turno: ' + error.message);
+        throw error;
     }
 };
 
